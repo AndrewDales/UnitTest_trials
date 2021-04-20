@@ -9,6 +9,13 @@ class VigenereTestCase(unittest.TestCase):
     def test_init(self):
         self.assertEqual(self.cipher.keyword, "TRAIN")
 
+    def test_init_lower(self):
+        cipher = VigenereCipher("taxi")
+        self.assertEqual(cipher.keyword, "TAXI")
+
+    def test_init_invalid(self):
+        self.assertRaises(ValueError, VigenereCipher, "$%FG")
+
     def test_combine_characer(self):
         self.assertEqual(self.cipher.combine_character("D", "E"), "H")
 
@@ -22,8 +29,6 @@ class VigenereTestCase(unittest.TestCase):
 
     def test_combine_lower(self):
         self.assertEqual(self.cipher.combine_character("y", "t"), "R")
-
-
 
     def test_encode(self):
         encoded_text = self.cipher.encode("ENCODEINPYTHON")

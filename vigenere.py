@@ -1,7 +1,9 @@
 class VigenereCipher:
 
     def __init__(self, keyword):
-        self.keyword = keyword
+        if not keyword.isalpha():
+            raise ValueError("Keyword must include only alphabetic characters (a-z or A-Z")
+        self.keyword = keyword.upper()
 
     def encode(self, plaintext):
         return 'XECWQXUIVCRKHWA'
