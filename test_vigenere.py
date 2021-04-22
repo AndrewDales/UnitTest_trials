@@ -15,10 +15,12 @@ class VigenereTestCase(unittest.TestCase):
 
     def test_init_invalid(self):
         self.assertRaises(ValueError, VigenereCipher, "$%FG")
+        self.assertRaises(TypeError, VigenereCipher, 20)
 
     def test_combine_characer(self):
         self.assertEqual(self.cipher._combine_character("D", "E"), "H")
 
+    # TODO validation not needed for private method
     def test_combine_non_alpha(self):
         self.assertRaises(ValueError, self.cipher._combine_character, "@", "t")
         # The name of the function or method is required (without calling the function), followed by
@@ -30,14 +32,30 @@ class VigenereTestCase(unittest.TestCase):
     def test_combine_lower(self):
         self.assertEqual(self.cipher._combine_character("y", "t"), "R")
 
-    def test_encode(self):
-        encoded_text = self.cipher.encode("ENCODEINPYTHON")
-        self.assertEqual(encoded_text, 'XECWQXUIVCRKHWA')
+    def test_separate_character(self):
+        self.assertEqual(self.cipher._separate_characters("W", "I"), "O")
+        self.assertEqual(self.cipher._separate_characters("p", "e"), "L")
 
     def test_extend_keyword(self):
         self.assertEqual(self.cipher.extend_keyword(12), "TRAINTRAINTR")
         cipher = VigenereCipher("CHEESE")
         self.assertEqual(cipher.extend_keyword(18), "CHEESECHEESECHEESE")
+
+    def test_encode(self):
+        self.assertEqual(self.cipher.encode("ENCODEDINPYTHON"), "XECWQXUIVCRKHWA")
+        self.assertEqual(self.cipher.encode("Give me cheese please"), "ZZVMZXTHMRLVPTRTJE")
+        cipher = VigenereCipher("computer")
+        self.assertEqual(cipher.encode("Meet me at the bridge at dawn"), "OSQIGXEKVVQQLBHXGOFSUPR")
+
+    def test_encode_validate(self):
+        self.assertRaises(ValueError, self.cipher.encode, "$%FG")
+        self.assertRaises(TypeError, self.cipher.encode, (5, 6))
+
+    def test_decode(self):
+        self.assertEqual(self.cipher.decode("XECWQXUIVCRKHWA"), "ENCODEDINPYTHON")
+        cipher = VigenereCipher("trunk")
+        self.assertEqual(cipher.decode("MFGBBKFQAOOVLQSXJ"), "TOMORROWNEVERDIES")
+
 
 if __name__ == '__main__':
     unittest.main()
