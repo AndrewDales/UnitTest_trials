@@ -17,16 +17,16 @@ class VigenereCipher:
         cipher_num = (plain_num + keyword_num) % 26
         return chr(cipher_num + ord('A'))
 
-    def extend_keyword(self, msg_length):
-        d, m = divmod(msg_length, len(self.keyword))
-        return self.keyword * d + self.keyword[:m]
-
     @staticmethod
-    def _separate_characters(cipher_letter, keyword_letter):
+    def _separate_character(cipher_letter, keyword_letter):
         cipher_num = ord(cipher_letter.upper()) - ord('A')
         keyword_num = ord(keyword_letter.upper()) - ord('A')
         plain_num = (cipher_num - keyword_num) % 26
         return chr(plain_num + ord('A'))
+
+    def extend_keyword(self, msg_length):
+        d, m = divmod(msg_length, len(self.keyword))
+        return self.keyword * d + self.keyword[:m]
 
     def encode(self, plaintext):
         if not isinstance(plaintext, str):
@@ -44,6 +44,6 @@ class VigenereCipher:
         plaintext_msg = plaintext.replace(" ", "")
         if not plaintext_msg.isalpha():
             raise ValueError("Plaintext must include only alphabetic characters (a-z or A-Z")
-        cipher_letters = [self._separate_characters(p, k)
+        cipher_letters = [self._separate_character(p, k)
                           for p, k in zip(plaintext_msg, self.extend_keyword(len(plaintext_msg)))]
         return "".join(cipher_letters)

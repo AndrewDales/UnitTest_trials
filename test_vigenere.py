@@ -33,8 +33,8 @@ class VigenereTestCase(unittest.TestCase):
         self.assertEqual(self.cipher._combine_character("y", "t"), "R")
 
     def test_separate_character(self):
-        self.assertEqual(self.cipher._separate_characters("W", "I"), "O")
-        self.assertEqual(self.cipher._separate_characters("p", "e"), "L")
+        self.assertEqual(self.cipher._separate_character("W", "I"), "O")
+        self.assertEqual(self.cipher._separate_character("p", "e"), "L")
 
     def test_extend_keyword(self):
         self.assertEqual(self.cipher.extend_keyword(12), "TRAINTRAINTR")
@@ -55,7 +55,7 @@ class VigenereTestCase(unittest.TestCase):
         self.assertEqual(self.cipher.decode("XECWQXUIVCRKHWA"), "ENCODEDINPYTHON")
         cipher = VigenereCipher("trunk")
         self.assertEqual(cipher.decode("MFGBBKFQAOOVLQSXJ"), "TOMORROWNEVERDIES")
-
+        cipher.output()
 
 if __name__ == '__main__':
     unittest.main()
