@@ -24,7 +24,7 @@ class TestCircle(unittest.TestCase):
 class TestQuadratic(unittest.TestCase):
     def test_solve_quadratic(self):
         self.assertEqual(solve_quadratic(1, -5, 6), (3, 2))
-        self.assertEqual(solve_quadratic(1, 2, 1), (-1, ))
+        self.assertEqual(solve_quadratic(1, 2, 1), (-1,))
         self.assertEqual(solve_quadratic(1, -2, -1), (1 + sqrt(2), 1 - sqrt(2)))
 
     def test_types(self):
@@ -32,6 +32,7 @@ class TestQuadratic(unittest.TestCase):
         # or if the quadratic does not have real solutions
         self.assertRaises(TypeError, solve_quadratic, 3 + 1j, 2, 3)
         self.assertRaises(ValueError, solve_quadratic, 1, 1, 2)
+
 
 if __name__ == '__main__':
     unittest.main()

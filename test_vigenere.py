@@ -17,7 +17,7 @@ class VigenereTestCase(unittest.TestCase):
         self.assertRaises(ValueError, VigenereCipher, "$%FG")
         self.assertRaises(TypeError, VigenereCipher, 20)
 
-    def test_combine_characer(self):
+    def test_combine_character(self):
         self.assertEqual(self.cipher._combine_character("D", "E"), "H")
 
     # TODO validation not needed for private method
@@ -55,7 +55,7 @@ class VigenereTestCase(unittest.TestCase):
         self.assertEqual(self.cipher.decode("XECWQXUIVCRKHWA"), "ENCODEDINPYTHON")
         cipher = VigenereCipher("trunk")
         self.assertEqual(cipher.decode("MFGBBKFQAOOVLQSXJ"), "TOMORROWNEVERDIES")
-        cipher.output()
+
 
 if __name__ == '__main__':
     unittest.main()
