@@ -21,7 +21,8 @@ class VigenereCipher:
         d, m = divmod(msg_length, len(self.keyword))
         return self.keyword * d + self.keyword[:m]
 
-    def _separate_characters(self, cipher_letter, keyword_letter):
+    @staticmethod
+    def _separate_characters(cipher_letter, keyword_letter):
         cipher_num = ord(cipher_letter.upper()) - ord('A')
         keyword_num = ord(keyword_letter.upper()) - ord('A')
         plain_num = (cipher_num - keyword_num) % 26
