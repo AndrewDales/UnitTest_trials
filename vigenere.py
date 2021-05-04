@@ -38,12 +38,12 @@ class VigenereCipher:
                           for p, k in zip(plaintext_msg, self.extend_keyword(len(plaintext_msg)))]
         return "".join(cipher_letters)
 
-    def decode(self, plaintext):
-        if not isinstance(plaintext, str):
-            raise TypeError("Plaintext must be a string")
-        plaintext_msg = plaintext.replace(" ", "")
-        if not plaintext_msg.isalpha():
-            raise ValueError("Plaintext must include only alphabetic characters (a-z or A-Z")
+    def decode(self, ciphertext):
+        if not isinstance(ciphertext, str):
+            raise TypeError("Ciphertext must be a string")
+        ciphertext_msg = ciphertext.replace(" ", "")
+        if not ciphertext_msg.isalpha():
+            raise ValueError("Ciphertext must include only alphabetic characters (a-z or A-Z")
         cipher_letters = [self._separate_character(p, k)
-                          for p, k in zip(plaintext_msg, self.extend_keyword(len(plaintext_msg)))]
+                          for p, k in zip(ciphertext_msg, self.extend_keyword(len(ciphertext_msg)))]
         return "".join(cipher_letters)
