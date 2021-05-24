@@ -28,22 +28,18 @@ class VigenereCipher:
         d, m = divmod(msg_length, len(self.keyword))
         return self.keyword * d + self.keyword[:m]
 
-    def encode(self, plaintext):
-        if not isinstance(plaintext, str):
+    def _code(self, text, combine_func):
+        if not isinstance(text, str):
             raise TypeError("Plaintext must be a string")
-        plaintext_msg = plaintext.replace(" ", "")
-        if not plaintext_msg.isalpha():
-            raise ValueError("Plaintext must include only alphabetic characters (a-z or A-Z")
-        cipher_letters = [self._combine_character(p, k)
-                          for p, k in zip(plaintext_msg, self.extend_keyword(len(plaintext_msg)))]
-        return "".join(cipher_letters)
+        text = text.replace(" ", "")
+        if not text.isalpha():
+            raise ValueError("Plaintext must include only alphabetic characters (a-z or A-Z)")
+        combined = [combine_func(p, k)
+                    for p, k in zip(text, self.extend_keyword(len(text)))]
+        return "".join(combined)
+
+    def encode(self, plaintext):
+        return self._code(plaintext, combine_func=self._combine_character)
 
     def decode(self, ciphertext):
-        if not isinstance(ciphertext, str):
-            raise TypeError("Ciphertext must be a string")
-        ciphertext_msg = ciphertext.replace(" ", "")
-        if not ciphertext_msg.isalpha():
-            raise ValueError("Ciphertext must include only alphabetic characters (a-z or A-Z")
-        cipher_letters = [self._separate_character(p, k)
-                          for p, k in zip(ciphertext_msg, self.extend_keyword(len(ciphertext_msg)))]
-        return "".join(cipher_letters)
+        return self._code(ciphertext, combine_func=self._separate_character)

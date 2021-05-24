@@ -20,11 +20,8 @@ class VigenereTestCase(unittest.TestCase):
     def test_combine_character(self):
         self.assertEqual(self.cipher._combine_character("D", "E"), "H")
 
-    # TODO validation not needed for private method
     def test_combine_non_alpha(self):
         self.assertRaises(ValueError, self.cipher._combine_character, "@", "t")
-        # The name of the function or method is required (without calling the function), followed by
-        # *args and **kwargs
 
     def test_combine_character_mod(self):
         self.assertEqual(self.cipher._combine_character("W", "F"), "B")
