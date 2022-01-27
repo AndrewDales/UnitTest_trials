@@ -37,9 +37,9 @@ class VigenereTestCase(unittest.TestCase):
         self.assertEqual(self.cipher._separate_character("p", "e"), "L")
 
     def test_extend_keyword(self):
-        self.assertEqual(self.cipher.extend_keyword(12), "TRAINTRAINTR")
+        self.assertEqual(self.cipher._extend_keyword(12), "TRAINTRAINTR")
         cipher = VigenereCipher("CHEESE")
-        self.assertEqual(cipher.extend_keyword(18), "CHEESECHEESECHEESE")
+        self.assertEqual(cipher._extend_keyword(18), "CHEESECHEESECHEESE")
 
     def test_encode(self):
         self.assertEqual(self.cipher.encode("ENCODEDINPYTHON"), "XECWQXUIVCRKHWA")
